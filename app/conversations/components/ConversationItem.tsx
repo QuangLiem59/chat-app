@@ -1,11 +1,7 @@
 "use client";
 
-import { Conversation } from "@prisma/client";
-import Image from "next/image";
-import useActiveList from "../../hooks/useActiveList";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import axios from "axios";
 import Avatar from "../../sharedComponents/Avatar";
 import { FullConversationType } from "@/app/types";
 import useOtherUser from "@/app/hooks/useOtherUser";
@@ -50,14 +46,8 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
     if (!userEmail) {
       return false;
     }
-
-    return (
-      listSeen.filter((user) => {
-        user.email === userEmail;
-      }).length > 0
-    );
+    return listSeen.filter((user) => user.email === userEmail).length > 0;
   }, [userEmail, lastMessage]);
-
   const lastMessageContent = useMemo(() => {
     if (lastMessage?.image) {
       return "Sent an image";
@@ -72,7 +62,10 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
 
   return (
     <div
-      className="relative flex items-center w-full px-4 py-2 rounded-lg cursor-pointer gap-x-2 hover:bg-gray-200"
+      className={clsx(
+        "relative flex items-center w-full px-4 py-2 rounded-lg cursor-pointer gap-x-2 hover:bg-gray-200",
+        selected && "bg-gray-200"
+      )}
       onClick={handleClick}
     >
       {data.isGroup ? (
@@ -81,11 +74,11 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
         <Avatar user={otherUser} />
       )}
       <div className="flex flex-col justify-center flex-1 max-w-[80%]">
-        <div className="flex items-center justify-between w-full text-sm font-medium text-gray-900 md:text-lg ">
-          <div className="w-full max-w-[70%]  overflow-hidden whitespace-nowrap text-ellipsis">
+        <div className="flex items-center justify-between w-full text-sm font-semibold text-gray-900 md:text-base ">
+          <div className="w-full max-w-[70%] truncate">
             {data.name || otherUser.name}
           </div>
-          <div className="w-full max-w-[30%]  overflow-hidden whitespace-nowrap text-ellipsis flex justify-between items-center">
+          <div className="w-full max-w-[30%] truncate flex justify-between items-center">
             {lastMessage?.createdAt && (
               <p className="w-full text-sm font-light text-gray-400">
                 {format(new Date(lastMessage.createdAt), "p")}
@@ -95,8 +88,10 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
         </div>
         <div
           className={clsx(
-            "w-full overflow-hidden text-xs italic font-normal md:text-sm text-ellipsis whitespace-nowrap",
-            hasSeenLastMessage ? "text-gray-500" : "text-teal-900 font-medium"
+            "w-full text-xs italic md:text-sm  truncate",
+            hasSeenLastMessage
+              ? "text-gray-500 font-normal"
+              : "text-teal-900 font-semibold after:right-2 after:top-1/2 after:w-2 after:h-2 after:rounded-full after:bg-teal-500 after:block after:absolute after:-translate-y-2/4"
           )}
         >
           {lastMessageContent}

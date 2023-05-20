@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 
 interface MobileItemProps {
+  label?: string;
   href: string;
   icon: any;
   isActive?: boolean;
@@ -9,6 +10,7 @@ interface MobileItemProps {
 }
 
 const MobileItem: React.FC<MobileItemProps> = ({
+  label,
   href,
   icon: Icon,
   isActive,
@@ -24,11 +26,14 @@ const MobileItem: React.FC<MobileItemProps> = ({
       <Link
         href={href}
         className={clsx(
-          `flex gap-x-3 w-full rounded-lg p-3 text-sm leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-200 justify-center items-center`,
-          isActive && "text-black bg-gray-200"
+          `flex gap-x-3 w-full rounded-lg p-3 text-sm leading-6 font-semibold text-gray-500 hover:bg-gray-200 justify-center items-center`,
+          isActive && "text-black bg-gray-200",
+          label === "Logout" ? "hover:text-red-600" : "hover:text-teal-500"
         )}
       >
-        <Icon className="w-6 h-6 shrink-0" />
+        <Icon
+          className={clsx("w-6 h-6 shrink-0", isActive && "text-teal-500")}
+        />
       </Link>
     </li>
   );

@@ -1,4 +1,4 @@
-import UserItem from "@/app/sharedComponents/UserItem";
+import UserItem from "@/app/users/components/UserItem";
 import { User } from "@prisma/client";
 
 interface ListUsersProps {
