@@ -6,7 +6,7 @@ import useActiveList from "../../hooks/useActiveList";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import axios from "axios";
-import Avatar from "../../sharedComponents/Avatar";
+import Avatar from "../../sharedComponents/Avatar/Avatar";
 
 interface UserItemProps {
   data: User;

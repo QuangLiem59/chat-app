@@ -2,7 +2,7 @@
 
 import { User } from "@prisma/client";
 import Image from "next/image";
-import useActiveList from "../hooks/useActiveList";
+import useActiveList from "../../hooks/useActiveList";
 import clsx from "clsx";
 
 interface AvatarSize {
@@ -34,7 +34,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, size }) => {
             : "h-9 w-9 md:h-11 md:w-11"
         )}
       >
-        <Image
+        {/* <Image
           fill
           src={user?.image || "/images/avatar.png"}
           alt="Avatar"
@@ -43,6 +43,12 @@ const Avatar: React.FC<AvatarProps> = ({ user, size }) => {
               ? `(min-width: 768px) ${size.mdWidth} ,${size.width}`
               : "(min-width: 768px) 2.75rem ,2.25rem"
           }
+          className="object-contain h-9 md:h-11"
+        /> */}
+        <img
+          src={user?.image || "/images/avatar.png"}
+          alt="Avatar"
+          className="object-contain w-full h-full"
         />
       </div>
       {isActive ? (

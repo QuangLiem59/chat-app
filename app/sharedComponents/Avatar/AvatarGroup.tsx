@@ -18,7 +18,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ users = [] }) => {
 
   return (
     <div className="relative h-11 w-11">
-      {slicedUsers.map((user, index) => (
+      {slicedUsers.reverse().map((user, index) => (
         <div
           key={user.id}
           className={`
@@ -31,10 +31,16 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({ users = [] }) => {
             ${positionMap[index as keyof typeof positionMap]}
           `}
         >
-          <Image
+          {/* <Image
             fill
             src={user?.image || "/images/avatar.png"}
             alt="Avatar"
+            className="object-contain"
+          /> */}
+          <img
+            src={user?.image || "/images/avatar.png"}
+            alt="Avatar"
+            className="object-contain w-full h-full"
           />
         </div>
       ))}

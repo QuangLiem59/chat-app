@@ -10,7 +10,7 @@ import useOtherUser from "@/app/hooks/useOtherUser";
 import useActiveList from "@/app/hooks/useActiveList";
 
 import ConfirmModal from "./ConfirmModal";
-import Avatar from "@/app/sharedComponents/Avatar";
+import Avatar from "@/app/sharedComponents/Avatar/Avatar";
 import AvatarGroup from "@/app/sharedComponents/Avatar/AvatarGroup";
 
 interface ProfileDrawerProps {

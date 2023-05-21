@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import Avatar from "../../sharedComponents/Avatar";
+import Avatar from "../../sharedComponents/Avatar/Avatar";
 import { FullConversationType } from "@/app/types";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { useSession } from "next-auth/react";

@@ -6,7 +6,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   fullWidth?: boolean;
   children?: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   secondary?: boolean;
   danger?: boolean;
   disabled?: boolean;
@@ -44,7 +44,7 @@ const Button: React.FC<ButtonProps> = ({
           "bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
         !secondary &&
           !danger &&
-          "bg-purple-500 hover:bg-purple-600 focus-visible:outline-purple-600"
+          "bg-teal-500 hover:bg-teal-600 focus-visible:outline-teal-600"
       )}
     >
       {children}

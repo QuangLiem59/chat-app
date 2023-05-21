@@ -8,7 +8,7 @@ export default function Home() {
         <Image
           height="48"
           width="48"
-          className="w-auto mx-auto"
+          className="object-contain w-auto h-12 mx-auto"
           src="/images/chatIcon.png"
           alt="Logo"
         />
