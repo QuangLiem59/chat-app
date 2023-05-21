@@ -2,7 +2,7 @@
 
 import { Fragment, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { IoClose, IoTrash } from "react-icons/io5";
+import { IoClose, IoTrash, IoTrashBin } from "react-icons/io5";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 
@@ -105,28 +105,16 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                               <Avatar user={otherUser} />
                             )}
                           </div>
-                          <div>{title}</div>
+                          <div className="font-bold">{title}</div>
                           <div className="text-sm text-gray-500">
                             {statusText}
                           </div>
-                          <div className="flex gap-10 my-8">
-                            <div
-                              onClick={() => setConfirmOpen(true)}
-                              className="flex flex-col items-center gap-3 cursor-pointer hover:opacity-75"
-                            >
-                              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-neutral-100">
-                                <IoTrash size={20} />
-                              </div>
-                              <div className="text-sm font-light text-neutral-600">
-                                Delete
-                              </div>
-                            </div>
-                          </div>
-                          <div className="w-full pt-5 pb-5 sm:px-0 sm:pt-0">
+                          
+                          <div className="w-full pt-5 pb-5 mt-8 border-y-2">
                             <dl className="px-4 space-y-8 sm:space-y-6 sm:px-6">
                               {data.isGroup && (
                                 <div>
-                                  <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                                  <dt className="text-sm font-semibold text-gray-500 sm:w-40 sm:flex-shrink-0">
                                     Emails
                                   </dt>
                                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
@@ -138,7 +126,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                               )}
                               {!data.isGroup && (
                                 <div>
-                                  <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                                  <dt className="text-sm font-semibold text-gray-500 sm:w-40 sm:flex-shrink-0">
                                     Email
                                   </dt>
                                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
@@ -150,7 +138,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                 <>
                                   <hr />
                                   <div>
-                                    <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                                    <dt className="text-sm font-semibold text-gray-500 sm:w-40 sm:flex-shrink-0">
                                       Joined
                                     </dt>
                                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
@@ -162,6 +150,19 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                 </>
                               )}
                             </dl>
+                          </div>
+                          <div className="flex gap-10 my-8">
+                            <div
+                              onClick={() => setConfirmOpen(true)}
+                              className="flex flex-col items-center gap-3 cursor-pointer group"
+                            >
+                              <div className="flex items-center justify-center ">
+                                <IoTrashBin size={20} className="group-hover:text-red-600"/>
+                              </div>
+                              <div className="text-sm font-light text-neutral-600 group-hover:text-red-600">
+                                Delete Conversation
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
