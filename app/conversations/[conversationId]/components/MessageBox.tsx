@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import clsx from "clsx";
 import Image from "next/image";
@@ -7,15 +7,20 @@ import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import { FullMessageType } from "@/app/types";
 
-// import ImageModal from "./ImageModal";
+import ImageModal from "./ImageModal";
 import Avatar from "@/app/sharedComponents/Avatar/Avatar";
 
 interface MessageBoxProps {
   data: FullMessageType;
   isLastMessage?: boolean;
+  preMessage?: any;
 }
 
-const MessageBox: React.FC<MessageBoxProps> = ({ data, isLastMessage }) => {
+const MessageBox: React.FC<MessageBoxProps> = ({
+  data,
+  isLastMessage,
+  preMessage,
+}) => {
   const session = useSession();
   const [imageModalOpen, setImageModalOpen] = useState(false);
 
@@ -31,12 +36,28 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLastMessage }) => {
     })
     .join(", ");
 
-  const container = clsx("flex gap-3 p-4", isOwn && "justify-end");
-  const avatar = clsx(isOwn && "order-2");
-  const body = clsx("flex flex-col gap-2", isOwn && "items-end");
+  const preMessageDate = preMessage ? new Date(preMessage?.createdAt) : null;
+  const messageDate = new Date(data?.createdAt);
+
+  const container = clsx(
+    "flex gap-3 p-4",
+    isOwn && "justify-end",
+    preMessage?.senderId === data.senderId &&
+      !!preMessageDate?.getMinutes() &&
+      messageDate.getMinutes() - 10 < preMessageDate?.getMinutes() &&
+      "mt-[-30px]"
+  );
+  const avatar = clsx(
+    isOwn && "order-2",
+    preMessage?.senderId === data.senderId &&
+      !!preMessageDate?.getMinutes() &&
+      messageDate.getMinutes() - 10 < preMessageDate?.getMinutes() &&
+      "invisible  opacity-0 h-0"
+  );
+  const body = clsx("flex flex-col gap-2 max-w-[75%]", isOwn && "items-end");
   const message = clsx(
-    "text-sm w-fit overflow-hidden",
-    isOwn ? "bg-teal-500 text-white" : "bg-gray-100",
+    "text-sm w-fit overflow-hidden shadow-lg",
+    isOwn ? "bg-teal-500 text-white shadow-teal-700/30" : "bg-gray-100",
     data.image
       ? "rounded-md p-0"
       : "rounded-tl-3xl rounded-br-3xl rounded-tr-2xl rounded-bl-2xl py-2 px-3"
@@ -47,7 +68,15 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLastMessage }) => {
         <Avatar user={data.sender} />
       </div>
       <div className={body}>
-        <div className="flex items-center gap-1 rounded-">
+        <div
+          className={clsx(
+            "flex items-center gap-1",
+            preMessage?.senderId === data.senderId &&
+              !!preMessageDate?.getMinutes() &&
+              messageDate.getMinutes() - 10 < preMessageDate?.getMinutes() &&
+              "hidden"
+          )}
+        >
           {isOwn && (
             <div className="text-xs text-gray-400">
               {format(new Date(data.createdAt), "p")}
@@ -61,15 +90,25 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLastMessage }) => {
           )}
         </div>
         <div className={message}>
-          {/* <ImageModal src={data.image} isOpen={imageModalOpen} onClose={() => setImageModalOpen(false)} /> */}
+          <ImageModal
+            src={data.image}
+            isOpen={imageModalOpen}
+            onClose={() => setImageModalOpen(false)}
+          />
           {data.image ? (
-            <Image
+            // <Image
+            //   alt="Image"
+            //   height="288"
+            //   width="288"
+            //   onClick={() => setImageModalOpen(true)}
+            //   src={data.image}
+            //   className="object-cover transition cursor-pointer hover:scale-110 translate"
+            // />
+            <img
               alt="Image"
-              height="288"
-              width="288"
-              onClick={() => setImageModalOpen(true)}
               src={data.image}
-              className="object-cover transition cursor-pointer hover:scale-110 translate"
+              className="object-contain transition bg-gray-200 cursor-pointer hover:scale-110 translate w-72"
+              onClick={() => setImageModalOpen(true)}
             />
           ) : (
             <div>{data.body}</div>

@@ -25,6 +25,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
           isLastMessage={i === messages.length - 1}
           key={message.id}
           data={message}
+          preMessage={i>1?messages[i-1]:null}
         />
       ))}
       <div ref={bottomRef} className="pt-24"></div>
