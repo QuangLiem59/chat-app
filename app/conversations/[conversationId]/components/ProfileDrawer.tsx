@@ -53,6 +53,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
       <ConfirmModal
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}
+        onCloseProfile={onClose}
       />
       <Transition.Root show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -109,7 +110,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                           <div className="text-sm text-gray-500">
                             {statusText}
                           </div>
-                          
+
                           <div className="w-full pt-5 pb-5 mt-8 border-y-2">
                             <dl className="px-4 space-y-8 sm:space-y-6 sm:px-6">
                               {/* {data.isGroup && (
@@ -169,7 +170,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                               className="flex flex-col items-center gap-3 cursor-pointer group"
                             >
                               <div className="flex items-center justify-center ">
-                                <IoTrashBin size={20} className="group-hover:text-red-600"/>
+                                <IoTrashBin
+                                  size={20}
+                                  className="group-hover:text-red-600"
+                                />
                               </div>
                               <div className="text-sm font-light text-neutral-600 group-hover:text-red-600">
                                 Delete Conversation

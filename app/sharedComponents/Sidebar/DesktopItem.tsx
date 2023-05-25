@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface DesktopItemProps {
   label: string;
@@ -16,8 +17,9 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
   isActive,
   onClick,
 }) => {
+  const path = usePathname();
   const handleClick = () => {
-    if (onClick) {
+    if (onClick && path !== href) {
       return onClick();
     }
   };

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 
-import { authOptions } from "../(src)/api/auth/[...nextauth]/route";
+import { authOptions } from "../(entry)/api/auth/[...nextauth]/route";
 
 export default async function getSession() {
   return await getServerSession(authOptions);

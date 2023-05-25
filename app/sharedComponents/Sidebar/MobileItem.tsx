@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface MobileItemProps {
   label?: string;
@@ -16,8 +17,9 @@ const MobileItem: React.FC<MobileItemProps> = ({
   isActive,
   onClick,
 }) => {
+  const path = usePathname();
   const handleClick = () => {
-    if (onClick) {
+    if (onClick && path !== href) {
       return onClick();
     }
   };

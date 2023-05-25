@@ -10,6 +10,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LoadingModal from "@/app/sharedComponents/modals/LoadingModal";
 
 type Entry = "LOGIN" | "REGISTER";
 
@@ -22,7 +23,8 @@ const AuthForm = () => {
   useEffect(() => {
     if (session?.status === "authenticated") {
       console.log(session);
-      router.push("/users");
+      // router.push("/users");
+      location.href = location.origin + "/users";
     }
   }, [session?.status, router]);
 
@@ -65,11 +67,9 @@ const AuthForm = () => {
         redirect: false,
       })
         .then((res) => {
-          console.log(res);
           if (res?.error) toast.error(res.error);
           if (res?.ok && !res?.error) {
             toast.success("Logged in!");
-            router.push("/users");
           }
         })
         .finally(() => {
@@ -85,7 +85,6 @@ const AuthForm = () => {
       redirect: false,
     })
       .then((res) => {
-        console.log(res);
         if (res?.error) toast.error(res.error);
         if (res?.ok && !res?.error) toast.success("Logged in!");
       })
@@ -95,77 +94,80 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          {entry === "REGISTER" && (
+    <>
+      {isLoading && <LoadingModal />}
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            {entry === "REGISTER" && (
+              <Input
+                id="name"
+                label="Name"
+                register={register}
+                errors={errors}
+                disabled={isLoading}
+              />
+            )}
             <Input
-              id="name"
-              label="Name"
+              id="email"
+              label="Email"
               register={register}
               errors={errors}
               disabled={isLoading}
             />
-          )}
-          <Input
-            id="email"
-            label="Email"
-            register={register}
-            errors={errors}
-            disabled={isLoading}
-          />
-          <Input
-            id="password"
-            label="Password"
-            register={register}
-            errors={errors}
-            disabled={isLoading}
-          />
-          <div>
-            <Button
+            <Input
+              id="password"
+              label="Password"
+              register={register}
+              errors={errors}
               disabled={isLoading}
-              fullWidth
-              type="submit"
-              onClick={() => {}}
-            >
-              {entry === "LOGIN" ? "Login" : "Register"}
-            </Button>
-          </div>
-        </form>
-
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center ">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm ">
-              <span className="px-2 text-gray-500 bg-white">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className="flex gap-2 mt-6">
-            <AuthSocialButton
-              Icon={BsGithub}
-              onClick={() => socialAction("github")}
             />
-            <AuthSocialButton
-              Icon={BsGoogle}
-              onClick={() => socialAction("google")}
-            />
+            <div>
+              <Button
+                disabled={isLoading}
+                fullWidth
+                type="submit"
+                onClick={() => {}}
+              >
+                {entry === "LOGIN" ? "Login" : "Register"}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center ">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm ">
+                <span className="px-2 text-gray-500 bg-white">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-2 mt-6">
+              <AuthSocialButton
+                Icon={BsGithub}
+                onClick={() => socialAction("github")}
+              />
+              <AuthSocialButton
+                Icon={BsGoogle}
+                onClick={() => socialAction("google")}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
-          <div>
-            {entry === "LOGIN" ? "New to Chat?" : "Already have an account?"}
-          </div>
-          <div className="underline cursor-pointer" onClick={toggleEntry}>
-            {entry === "LOGIN" ? "Create an account" : "Login"}
+          <div className="flex justify-center gap-2 px-2 mt-6 text-sm text-gray-500">
+            <div>
+              {entry === "LOGIN" ? "New to Chat?" : "Already have an account?"}
+            </div>
+            <div className="underline cursor-pointer" onClick={toggleEntry}>
+              {entry === "LOGIN" ? "Create an account" : "Login"}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

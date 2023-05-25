@@ -1,8 +1,9 @@
 import Head from "next/head";
-import Notification from "./(src)/context/Notificatiton";
+import Notification from "./(entry)/context/Notificatiton";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import AuthContext from "./(src)/context/AuthContext";
+import AuthContext from "./(entry)/context/AuthContext";
+import ActiveStatus from "./sharedComponents/ActiveStatus";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthContext>
           <Notification />
+          <ActiveStatus />
           {children}
         </AuthContext>
       </body>

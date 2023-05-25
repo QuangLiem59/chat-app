@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Avatar from "../../sharedComponents/Avatar/Avatar";
 import LoadingModal from "@/app/sharedComponents/modals/LoadingModal";
+import useRoutes from "@/app/hooks/useRoutes";
 
 interface UserItemProps {
   data: User;
@@ -15,6 +16,7 @@ interface UserItemProps {
 
 const UserItem: React.FC<UserItemProps> = ({ data }) => {
   const router = useRouter();
+  const routes = useRoutes();
   const path = usePathname();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,12 +55,12 @@ const UserItem: React.FC<UserItemProps> = ({ data }) => {
     if (path === `conversations/${data.id}`) {
       setIsLoading(false);
     }
-  }, [path]);
+  }, [path, routes]);
   return (
     <>
       {isLoading && <LoadingModal />}
       <div
-        className="relative flex items-center w-full px-4 py-1 rounded-lg cursor-pointer gap-x-2 hover:bg-gray-200"
+        className="relative flex items-center w-full px-4 py-2 rounded-lg cursor-pointer gap-x-2 hover:bg-gray-200"
         onClick={handleClick}
       >
         <Avatar user={data} size={avatarSize} />

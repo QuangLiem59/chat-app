@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { format } from "date-fns";
 import clsx from "clsx";
 import AvatarGroup from "@/app/sharedComponents/Avatar/AvatarGroup";
+import useDuration from "@/app/hooks/useDuration";
 
 interface UserItemProps {
   data: FullConversationType;
@@ -81,7 +82,7 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
           <div className="w-full max-w-[30%] truncate flex justify-between items-center">
             {lastMessage?.createdAt && (
               <p className="w-full text-sm font-light text-gray-400">
-                {format(new Date(lastMessage.createdAt), "p")}
+                {useDuration(Date.now() - new Date(lastMessage.createdAt).getTime())}
               </p>
             )}
           </div>

@@ -2,7 +2,7 @@
 
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BarLoader } from "react-spinners";
+import { BarLoader, HashLoader } from "react-spinners";
 
 const LoadingModal = () => {
   return (
@@ -32,7 +32,7 @@ const LoadingModal = () => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel>
-                <BarLoader color="#36d7b7" speedMultiplier={2} />
+                <HashLoader color="#36d7b7" size={75} speedMultiplier={1} />
               </Dialog.Panel>
             </Transition.Child>
           </div>

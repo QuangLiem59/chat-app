@@ -12,7 +12,7 @@ const ListUsers: React.FC<ListUsersProps> = ({ listUsers }) => {
         <div className="flex items-center w-full py-4 border-b">
           <div className="pl-4 text-xl font-semibold text-gray-700">People</div>
         </div>
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col mt-4 gap-y-1">
           {listUsers.map((user) => (
             <UserItem key={user.id} data={user} />
           ))}

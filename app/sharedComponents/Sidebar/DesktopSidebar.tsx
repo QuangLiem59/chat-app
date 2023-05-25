@@ -1,11 +1,12 @@
 "use client";
 
 import useRoutes from "@/app/hooks/useRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
 import Avatar from "../Avatar/Avatar";
 import SettingsModal from "./SettingsModal";
+import LoadingModal from "../modals/LoadingModal";
 
 interface DesktopSidebarProps {
   currentUser: User;
@@ -13,8 +14,21 @@ interface DesktopSidebarProps {
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleItemClick = (onClick: any) => {
+    setIsLoading(true);
+    if (onClick) {
+      return onClick();
+    }
+  };
+
+  useEffect(() => {
+    isLoading && setIsLoading(false);
+  }, [routes]);
   return (
     <>
+      {isLoading && <LoadingModal />}
       <SettingsModal
         currentUser={currentUser}
         isOpen={isOpen}
@@ -30,7 +44,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
                 label={item.label}
                 icon={item.icon}
                 isActive={item.isActive}
-                onClick={item.onClick}
+                onClick={() => handleItemClick(item.onClick)}
               />
             ))}
           </ul>

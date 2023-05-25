@@ -34,7 +34,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, size }) => {
             : "h-9 w-9 md:h-11 md:w-11"
         )}
       >
-        {/* <Image
+        <Image
           fill
           src={user?.image || "/images/avatar.png"}
           alt="Avatar"
@@ -44,15 +44,15 @@ const Avatar: React.FC<AvatarProps> = ({ user, size }) => {
               : "(min-width: 768px) 2.75rem ,2.25rem"
           }
           className="object-contain h-9 md:h-11"
-        /> */}
-        <img
+        />
+        {/* <img
           src={user?.image || "/images/avatar.png"}
           alt="Avatar"
           className="object-contain w-full h-full"
-        />
+        /> */}
       </div>
       {isActive ? (
-        <span className="absolute top-0 right-0 block w-2 h-2 bg-green-500 rounded-full ring-2 ring-white md:h-3 md:w-3" />
+        <span className="absolute bottom-0 right-0 block w-2 h-2 bg-green-500 rounded-full ring-2 ring-white md:h-3 md:w-3" />
       ) : null}
     </div>
   );

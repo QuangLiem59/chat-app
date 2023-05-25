@@ -96,20 +96,20 @@ const MessageBox: React.FC<MessageBoxProps> = ({
             onClose={() => setImageModalOpen(false)}
           />
           {data.image ? (
-            // <Image
-            //   alt="Image"
-            //   height="288"
-            //   width="288"
-            //   onClick={() => setImageModalOpen(true)}
-            //   src={data.image}
-            //   className="object-cover transition cursor-pointer hover:scale-110 translate"
-            // />
-            <img
+            <Image
               alt="Image"
-              src={data.image}
-              className="object-contain transition bg-gray-200 cursor-pointer hover:scale-110 translate w-72"
+              height="288"
+              width="288"
               onClick={() => setImageModalOpen(true)}
+              src={data.image}
+              className="object-cover transition cursor-pointer hover:scale-110 translate"
             />
+            // <img
+            //   alt="Image"
+            //   src={data.image}
+            //   className="object-contain transition bg-gray-200 cursor-pointer hover:scale-110 translate w-72"
+            //   onClick={() => setImageModalOpen(true)}
+            // />
           ) : (
             <div>{data.body}</div>
           )}
