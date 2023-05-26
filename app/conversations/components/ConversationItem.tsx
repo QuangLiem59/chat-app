@@ -61,6 +61,10 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
     return "Started an conversation!";
   }, [lastMessage]);
 
+  const getDuration = (mil:number) => {
+    return useDuration(mil)
+  }
+
   return (
     <div
       className={clsx(
@@ -82,7 +86,7 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
           <div className="w-full max-w-[30%] truncate flex justify-between items-center">
             {lastMessage?.createdAt && (
               <p className="w-full text-sm font-light text-gray-400">
-                {useDuration(Date.now() - new Date(lastMessage.createdAt).getTime())}
+                {getDuration(Date.now() - new Date(lastMessage.createdAt).getTime())}
               </p>
             )}
           </div>
