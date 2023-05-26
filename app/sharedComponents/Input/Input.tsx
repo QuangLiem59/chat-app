@@ -1,7 +1,10 @@
 "use client";
 
 import clsx from "clsx";
+import { useState } from "react";
 import { UseFormRegister, FieldValues, FieldErrors } from "react-hook-form";
+import { BsGithub } from "react-icons/bs";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 interface InputProps {
   label: string;
@@ -11,6 +14,9 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   disabled?: boolean;
+  minlength?: number;
+  maxlength?: number;
+  isDark?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -21,21 +27,30 @@ const Input: React.FC<InputProps> = ({
   register,
   errors,
   disabled,
+  minlength,
+  maxlength,
+  isDark,
 }) => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
   return (
     <div>
       <label
         htmlFor={id}
-        className="block text-sm font-semibold leading-6 text-gray-900"
+        className={clsx(
+          "block text-sm font-semibold leading-6",
+          isDark ? "text-gray-100" : "text-gray-900"
+        )}
       >
         {label}
       </label>
-      <div className="mt-2 ">
+      <div className="relative mt-2">
         <input
           id={id}
-          type={type}
+          type={(type === "password" && isShowPassword && "text") || type}
           autoComplete={id}
           disabled={disabled}
+          minLength={minlength}
+          maxLength={maxlength}
           {...register(id, { required })}
           className={clsx(
             `form-input
@@ -44,7 +59,7 @@ const Input: React.FC<InputProps> = ({
             rounded-md
             border-0
             py-1.5
-          text-gray-900
+            text-gray-900
             shadow-sm
             ring-1
             ring-inset
@@ -59,6 +74,18 @@ const Input: React.FC<InputProps> = ({
             disabled && "opacity-50 cursor-default"
           )}
         />
+        {type === "password" &&
+          (isShowPassword ? (
+            <IoEye
+              className="absolute text-teal-900 -translate-y-1/2 cursor-pointer right-2 top-1/2"
+              onClick={() => setIsShowPassword(false)}
+            />
+          ) : (
+            <IoEyeOff
+              className="absolute text-teal-900 -translate-y-1/2 cursor-pointer right-2 top-1/2"
+              onClick={() => setIsShowPassword(true)}
+            />
+          ))}
       </div>
     </div>
   );

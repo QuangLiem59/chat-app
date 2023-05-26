@@ -20,6 +20,7 @@ const getMessages = async (conversationId: string) => {
       orderBy: {
         createdAt: "asc",
       },
+      take: -100
     });
 
     return conversation;
