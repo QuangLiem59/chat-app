@@ -47,7 +47,24 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
+    if (!data.email.length) {
+      toast.error("Please enter email!");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!data.password.length) {
+      toast.error("Please enter password!");
+      setIsLoading(false);
+      return;
+    }
+
     if (entry === "REGISTER") {
+      if (!data.name.length) {
+        toast.error("Please enter name!");
+        setIsLoading(false);
+        return;
+      }
       axios
         .post("/api/register", data)
         .then(() => signIn("credentials", data))
