@@ -90,6 +90,8 @@ const ListConversations: React.FC<ListConversationsProps> = ({
                 return elm;
               });
             }
+
+            return current;
           }
 
           let newUpdateObj = {
