@@ -23,7 +23,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
 
   useEffect(() => {
     pusherClient.subscribe(conversationId);
-    bottomRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
 
     const handleNewMessage = (message: FullMessageType) => {
       axios.post(`/api/conversations/${conversationId}/seen`);
@@ -36,7 +36,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
         return [...currentMessages, message];
       });
 
-      bottomRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      bottomRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
     };
 
     const handleUpdateMessage = (message: FullMessageType) => {
@@ -71,7 +71,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
           preMessage={i > 1 ? messages[i - 1] : null}
         />
       ))}
-      <div ref={bottomRef} className="pt-4"></div>
+      <div ref={bottomRef} className="pt-8"></div>
     </div>
   );
 };
