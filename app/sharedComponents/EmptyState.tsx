@@ -38,7 +38,7 @@ const EmptyState = () => {
           />
         </div>
         <div className="mt-2 text-xl font-semibold text-gray-700">
-          It's nice to chat with someone
+          {"It's nice to chat with someone"}
         </div>
         <div className="w-48 mt-2 text-sm font-medium text-gray-500">
           Pick a person from left menu and start your conversation
