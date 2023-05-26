@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import AuthContext from "./(entry)/context/AuthContext";
 import ActiveStatus from "./sharedComponents/ActiveStatus";
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthContext>
+          <Analytics />
           <Notification />
           <ActiveStatus />
           {children}
