@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { format } from "date-fns";
 import clsx from "clsx";
 import AvatarGroup from "@/app/sharedComponents/Avatar/AvatarGroup";
-import useDuration from "@/app/hooks/useDuration";
+import getDuration from "@/app/functions/getDuration";
 
 interface UserItemProps {
   data: FullConversationType;
@@ -60,10 +60,6 @@ const ConversationItem: React.FC<UserItemProps> = ({ data, selected }) => {
 
     return "Started an conversation!";
   }, [lastMessage]);
-
-  const getDuration = (mil:number) => {
-    return useDuration(mil)
-  }
 
   return (
     <div

@@ -1,4 +1,4 @@
-const useDuration = (ms: number): string => {
+const getDuration = (ms: number): string => {
   let seconds: string | number = (ms / 1000).toFixed(0);
   let minutes: string | number = (ms / (1000 * 60)).toFixed(0);
   let hours: string | number = (ms / (1000 * 60 * 60)).toFixed(0);
@@ -9,4 +9,4 @@ const useDuration = (ms: number): string => {
   else return days + " Days";
 };
 
-export default useDuration;
+export default getDuration;
