@@ -12,8 +12,8 @@ export const metadata = {
   title: "Chat App",
   description: "Chat App",
   icons: {
-    icon: "images/chatIcon.png",
-    shortcut: "images/chatIcon.png",
+    icon: "/images/chatIcon.png",
+    shortcut: "/images/chatIcon.png",
   },
 };
 
